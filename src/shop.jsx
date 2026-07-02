@@ -3,6 +3,7 @@ import "./App.css";
 
 function Shop() {
   const [products, setProducts] = useState([]);
+
   const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem("cart");
     return savedCart ? JSON.parse(savedCart) : [];
@@ -56,11 +57,26 @@ function Shop() {
 
   return (
     <div>
+      {/* Banner */}
       <div className="banner">
-        <h1>👑 Queen Cosmetics</h1>
-        <p>La beauté commence ici ✨</p>
+        <div className="banner-content">
+          <h1>👑 Queen Cosmetics</h1>
+          <p>Révélez votre beauté naturelle ✨</p>
+
+          <button
+            onClick={() =>
+              window.scrollTo({
+                top: 650,
+                behavior: "smooth",
+              })
+            }
+          >
+            Découvrir nos produits
+          </button>
+        </div>
       </div>
 
+      {/* Produits */}
       <div className="products">
         {products.map((product, index) => (
           <div key={index} className="card">
@@ -91,6 +107,7 @@ function Shop() {
         ))}
       </div>
 
+      {/* Panier */}
       <div className="panier">
         <h2>
           🛒 Votre panier ({cart.length})
@@ -119,7 +136,7 @@ function Shop() {
                     width: "80px",
                     height: "80px",
                     objectFit: "cover",
-                    borderRadius: "10px",
+                    borderRadius: "12px",
                   }}
                 />
 
