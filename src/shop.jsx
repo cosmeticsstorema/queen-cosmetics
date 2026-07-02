@@ -38,7 +38,8 @@ function Shop() {
   );
 
   const commanderWhatsApp = () => {
-    let message = "👑 Bonjour, je souhaite commander :\n\n";
+    let message =
+      "👑 Bonjour, je souhaite commander :\n\n";
 
     cart.forEach((product, index) => {
       message += `${index + 1}. ${product.name} - ${product.price} DH\n`;
@@ -57,134 +58,8 @@ function Shop() {
 
   return (
     <div>
-      {/* Banner */}
-      <div className="banner">
-        <div className="banner-content">
-          <h1>👑 Queen Cosmetics</h1>
-          <p>Révélez votre beauté naturelle ✨</p>
-
-          <button
-            onClick={() =>
-              window.scrollTo({
-                top: 650,
-                behavior: "smooth",
-              })
-            }
-          >
-            Découvrir nos produits
-          </button>
-        </div>
-      </div>
-
-      {/* Produits */}
-      <div className="products">
-        {products.map((product, index) => (
-          <div key={index} className="card">
-            <img
-              src={product.image}
-              alt={product.name}
-            />
-
-            <div className="card-content">
-              <h3>{product.name}</h3>
-
-              <p className="price">
-                {product.price} DH
-              </p>
-
-              <p>{product.description}</p>
-
-              <button
-                className="btn"
-                onClick={() =>
-                  ajouterAuPanier(product)
-                }
-              >
-                Ajouter au panier 🛒
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Panier */}
-      <div className="panier">
-        <h2>
-          🛒 Votre panier ({cart.length})
-        </h2>
-
-        {cart.length === 0 ? (
-          <p style={{ textAlign: "center" }}>
-            Votre panier est vide.
-          </p>
-        ) : (
-          <>
-            {cart.map((product, index) => (
-              <div
-                key={index}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "15px",
-                  marginBottom: "20px",
-                }}
-              >
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  style={{
-                    width: "80px",
-                    height: "80px",
-                    objectFit: "cover",
-                    borderRadius: "12px",
-                  }}
-                />
-
-                <div style={{ flex: 1 }}>
-                  <h3>{product.name}</h3>
-                  <p>{product.price} DH</p>
-                </div>
-
-                <button
-                  onClick={() =>
-                    supprimerDuPanier(index)
-                  }
-                  style={{
-                    background: "red",
-                    color: "white",
-                    border: "none",
-                    padding: "10px",
-                    borderRadius: "8px",
-                    cursor: "pointer",
-                  }}
-                >
-                  ❌
-                </button>
-              </div>
-            ))}
-
-            <h3 className="total">
-              💰 Total : {total} DH
-            </h3>
-
-            <div
-              style={{
-                textAlign: "center",
-                marginTop: "25px",
-              }}
-            >
-              <button
-                className="btn"
-                onClick={commanderWhatsApp}
-              >
-                Commander sur WhatsApp 📱
-              </button>
-            </div>
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
-
-export default Shop;
+      {/* Navbar */}
+      <nav className="navbar">
+        <div className="logo">
+          👑 Queen Cosmetics
+        </
