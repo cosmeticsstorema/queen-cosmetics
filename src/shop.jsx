@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
+import "./App.css";
 
 function Shop() {
   const [products, setProducts] = useState([]);
-
   const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem("cart");
     return savedCart ? JSON.parse(savedCart) : [];
@@ -22,7 +22,6 @@ function Shop() {
 
   const ajouterAuPanier = (product) => {
     setCart((prevCart) => [...prevCart, product]);
-    alert(product.name + " ajouté au panier !");
   };
 
   const supprimerDuPanier = (index) => {
@@ -32,19 +31,16 @@ function Shop() {
   };
 
   const total = cart.reduce(
-  (sum, product) =>
-    sum + parseInt(product.price.replace("DH", "")),
-  0
-);
+    (sum, product) =>
+      sum + parseInt(String(product.price).replace("DH", "")),
+    0
+  );
 
   const commanderWhatsApp = () => {
-    let message =
-      "👑 Bonjour, je souhaite commander :\n\n";
+    let message = "👑 Bonjour, je souhaite commander :\n\n";
 
     cart.forEach((product, index) => {
-      message += `${index + 1}. ${
-        product.name
-      } - ${product.price} DH\n`;
+      message += `${index + 1}. ${product.name} - ${product.price} DH\n`;
     });
 
     message += `\n💰 Total : ${total} DH`;
@@ -59,87 +55,34 @@ function Shop() {
   };
 
   return (
-    <div
-      style={{
-        padding: "30px",
-        background: "#f8f8f8",
-        minHeight: "100vh",
-      }}
-    >
-      <h1
-        style={{
-          textAlign: "center",
-          color: "#222",
-          marginBottom: "10px",
-        }}
-      >
-        👑 Queen Cosmetics
-      </h1>
+    <div>
+      <div className="banner">
+        <h1>👑 Queen Cosmetics</h1>
+        <p>La beauté commence ici ✨</p>
+      </div>
 
-      <p
-        style={{
-          textAlign: "center",
-          fontSize: "20px",
-          marginBottom: "40px",
-        }}
-      >
-        🛒 Produits dans le panier : {cart.length}
-      </p>
-
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "20px",
-          justifyContent: "center",
-        }}
-      >
+      <div className="products">
         {products.map((product, index) => (
-          <div
-            key={index}
-            style={{
-              width: "300px",
-              background: "white",
-              borderRadius: "15px",
-              overflow: "hidden",
-              boxShadow:
-                "0 4px 15px rgba(0,0,0,0.1)",
-            }}
-          >
+          <div key={index} className="card">
             <img
               src={product.image}
               alt={product.name}
-              style={{
-                width: "100%",
-                height: "250px",
-                objectFit: "cover",
-              }}
             />
 
-            <div style={{ padding: "15px" }}>
+            <div className="card-content">
               <h3>{product.name}</h3>
 
-              <p>
-                <strong>
-                  {product.price} DH
-                </strong>
+              <p className="price">
+                {product.price} DH
               </p>
 
               <p>{product.description}</p>
 
               <button
+                className="btn"
                 onClick={() =>
                   ajouterAuPanier(product)
                 }
-                style={{
-                  width: "100%",
-                  padding: "12px",
-                  border: "none",
-                  borderRadius: "10px",
-                  background: "#000",
-                  color: "#fff",
-                  cursor: "pointer",
-                }}
               >
                 Ajouter au panier 🛒
               </button>
@@ -148,93 +91,81 @@ function Shop() {
         ))}
       </div>
 
-      <hr style={{ margin: "50px 0" }} />
+      <div className="panier">
+        <h2>
+          🛒 Votre panier ({cart.length})
+        </h2>
 
-      <h2 style={{ textAlign: "center" }}>
-        🛒 Votre panier
-      </h2>
-
-      {cart.length === 0 ? (
-        <p style={{ textAlign: "center" }}>
-          Votre panier est vide.
-        </p>
-      ) : (
-        <>
-          {cart.map((product, index) => (
-            <div
-              key={index}
-              style={{
-                background: "white",
-                padding: "15px",
-                borderRadius: "10px",
-                margin: "15px auto",
-                maxWidth: "500px",
-                display: "flex",
-                gap: "15px",
-                alignItems: "center",
-              }}
-            >
-              <img
-                src={product.image}
-                alt={product.name}
+        {cart.length === 0 ? (
+          <p style={{ textAlign: "center" }}>
+            Votre panier est vide.
+          </p>
+        ) : (
+          <>
+            {cart.map((product, index) => (
+              <div
+                key={index}
                 style={{
-                  width: "80px",
-                  height: "80px",
-                  objectFit: "cover",
-                  borderRadius: "10px",
-                }}
-              />
-
-              <div style={{ flex: 1 }}>
-                <h3>{product.name}</h3>
-                <p>{product.price} DH</p>
-              </div>
-
-              <button
-                onClick={() =>
-                  supprimerDuPanier(index)
-                }
-                style={{
-                  padding: "10px",
-                  border: "none",
-                  borderRadius: "8px",
-                  background: "red",
-                  color: "white",
-                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "15px",
+                  marginBottom: "20px",
                 }}
               >
-                ❌
-              </button>
-            </div>
-          ))}
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  style={{
+                    width: "80px",
+                    height: "80px",
+                    objectFit: "cover",
+                    borderRadius: "10px",
+                  }}
+                />
 
-          <h3 style={{ textAlign: "center" }}>
-            💰 Total : {total} DH
-          </h3>
+                <div style={{ flex: 1 }}>
+                  <h3>{product.name}</h3>
+                  <p>{product.price} DH</p>
+                </div>
 
-          <div
-            style={{
-              textAlign: "center",
-              marginTop: "20px",
-            }}
-          >
-            <button
-              onClick={commanderWhatsApp}
+                <button
+                  onClick={() =>
+                    supprimerDuPanier(index)
+                  }
+                  style={{
+                    background: "red",
+                    color: "white",
+                    border: "none",
+                    padding: "10px",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                  }}
+                >
+                  ❌
+                </button>
+              </div>
+            ))}
+
+            <h3 className="total">
+              💰 Total : {total} DH
+            </h3>
+
+            <div
               style={{
-                padding: "15px 25px",
-                border: "none",
-                borderRadius: "10px",
-                background: "#25D366",
-                color: "white",
-                cursor: "pointer",
-                fontSize: "16px",
+                textAlign: "center",
+                marginTop: "25px",
               }}
             >
-              Commander sur WhatsApp 📱
-            </button>
-          </div>
-        </>
-      )}
+              <button
+                className="btn"
+                onClick={commanderWhatsApp}
+              >
+                Commander sur WhatsApp 📱
+              </button>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }
